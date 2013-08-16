@@ -5,9 +5,17 @@
 instead_version '1.9.0'
 
 dofile('forest.lua')
+math.randomseed(os.time())
 
 game.codepage = 'UTF-8'
 game_title = 'В лесу'
+
+
+global
+{
+    current_position = math.random(forest.size * forest.size),
+    descriptions = {}
+}
 
 
 main = room
@@ -42,5 +50,12 @@ preview2 = room
 	    Мне всё здесь надоело! Думаю, пора возврашаться домой с пустыми руками.
 	    Правда, я начинаю сомневаться в какую сторону мне двигаться,
 	    но ничего, куда-нибудь да выйду.]],
-    obj = {vway('Далее', '{Далее}', 'forest')}
+    obj = {vway('Далее', '{Далее}', 'forest')},
+
+    entered = function() 
+	for i = 0, forest.size * forest.size
+	do
+	    descriptions[i] = places[math.random(#places)]
+	end;
+    end
 }
